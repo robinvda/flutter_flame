@@ -14,7 +14,7 @@ class Game extends BaseGame {
   CustomRect rect;
   TextComponent scoreDisplay;
 
-  Random random = new Random();
+  Random random = Random();
 
   int score = 0;
 
@@ -44,7 +44,7 @@ class Game extends BaseGame {
   }
 
   addBackground() {
-    background = new CustomRect(
+    background = CustomRect(
       color: Color(0xFF333333),
       width: screenSize?.width ?? 0,
       height: screenSize?.height ?? 0,
@@ -57,7 +57,7 @@ class Game extends BaseGame {
   }
 
   addRect() {
-    rect = new CustomRect(
+    rect = CustomRect(
       x: 50,
       y: 50,
       onTap: (rect, details) {
