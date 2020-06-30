@@ -10,14 +10,18 @@ void main() async {
   await flameUtil.fullScreen();
   await flameUtil.setOrientation(DeviceOrientation.portraitUp);
 
-  runApp(FlutterFlame());
+  final Game game = Game();
+
+  runApp(FlutterFlame(game));
 }
 
 class FlutterFlame extends StatelessWidget {
+  final Game game;
+
+  FlutterFlame(this.game);
+
   @override
   Widget build(BuildContext context) {
-    final Game game = Game();
-
     return MaterialApp(
       home: Scaffold(
         backgroundColor: const Color(0xFF333333),

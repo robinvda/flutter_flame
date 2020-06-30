@@ -1,17 +1,24 @@
 import 'dart:ui';
 
 import 'package:flame/components/component.dart';
+import 'package:flame/components/mixins/has_game_ref.dart';
 import 'package:flame/components/mixins/tapable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterflame/Game.dart';
 
-class CustomRect extends PositionComponent with Tapable {
+class CustomRect extends PositionComponent with HasGameRef<Game> {
   Paint color;
 
   double speed = 0.0;
 
-  Function(CustomRect, TapDownDetails) onTap;
+  bool move = true;
 
-  CustomRect({double x: 0, double y: 0, double width = 100, double height = 100, Color color, Function(CustomRect, TapDownDetails) onTap}) {
+  bool expanding = true;
+
+  double baseX;
+  double baseY;
+
+  CustomRect({double x: 0, double y: 0, double width = 100, double height = 100, Color color, bool move = true}) {
     this.width = width;
     this.height = height;
 
@@ -20,21 +27,29 @@ class CustomRect extends PositionComponent with Tapable {
     this.x = x;
     this.y = y;
 
-    this.onTap = onTap;
+    this.baseX = x;
+    this.baseY = y;
+
+    this.move = move;
+  }
+
+  resetPosition() {
+    x = baseX;
+    y = baseY;
   }
 
   @override
-  void onTapDown(TapDownDetails details) {
-    onTap(this, details);
-  }
-
-  @override
-  void update(double time) {
-    y += 200 * time * speed;
+  void update(double t) {
+    if (this.move) {
+      this.x *= (t + 1);
+      this.y *= (t + 1);
+    }
   }
 
   @override
   void render(Canvas canvas) {
+    prepareCanvas(canvas);
+
     canvas.drawRect(toRect(), color);
   }
 }
