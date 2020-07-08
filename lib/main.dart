@@ -1,7 +1,7 @@
 import 'package:flame/util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutterflame/Game.dart';
+import 'package:flutterflame/engine/game.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -12,13 +12,15 @@ void main() async {
 
   final Game game = Game();
 
-  runApp(FlutterFlame(game));
+  game.world.loadArea(0, 0);
+
+  runApp(Main(game));
 }
 
-class FlutterFlame extends StatelessWidget {
+class Main extends StatelessWidget {
   final Game game;
 
-  FlutterFlame(this.game);
+  Main(this.game);
 
   @override
   Widget build(BuildContext context) {

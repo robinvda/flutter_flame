@@ -1,12 +1,9 @@
 import 'dart:ui';
 
 import 'package:flame/components/component.dart';
-import 'package:flame/components/mixins/has_game_ref.dart';
-import 'package:flame/components/mixins/tapable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflame/Game.dart';
 
-class CustomRect extends PositionComponent with HasGameRef<Game> {
+class GameRect extends PositionComponent {
   Paint color;
 
   double speed = 0.0;
@@ -18,7 +15,7 @@ class CustomRect extends PositionComponent with HasGameRef<Game> {
   double baseX;
   double baseY;
 
-  CustomRect({double x: 0, double y: 0, double width = 100, double height = 100, Color color, bool move = true}) {
+  GameRect({double x: 0, double y: 0, double width = 100, double height = 100, Color color, bool move = true}) {
     this.width = width;
     this.height = height;
 

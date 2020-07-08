@@ -2,38 +2,24 @@ import 'dart:ui';
 
 import 'package:flame/game/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterflame/CustomRect.dart';
+import 'package:flutterflame/engine/game_rect.dart';
 import 'package:flutterflame/game/world.dart';
 
 class Game extends BaseGame {
   Size screenSize;
 
-  CustomRect background;
-
-  List<CustomRect> rectangles = List<CustomRect>();
+  GameRect background;
 
   World world;
 
   Game() {
+    world = World(this);
+
     addBackground();
+  }
 
-    world = World()..init(100);
-
-    world.areas.first.rows.forEach((row) {
-      row.cells.forEach((cell) {
-        rectangles.add(CustomRect(
-            x: cell.position.x,
-            y: cell.position.y,
-            width: 1,
-            height: 1,
-            color: Color(0xFFEEEEEE)
-        ));
-      });
-    });
-
-    rectangles.forEach((rectangle) {
-      add(rectangle);
-    });
+  init(World world) {
+    this.world = world;
   }
 
   void render(Canvas canvas) {
@@ -42,12 +28,6 @@ class Game extends BaseGame {
 
   void update(double t) {
     super.update(t);
-
-    if (rectangles.last.x > 10000) {
-      rectangles.forEach((rectangle) {
-        rectangle.resetPosition();
-      });
-    }
   }
 
   void resize(Size size) {
@@ -58,7 +38,7 @@ class Game extends BaseGame {
   }
 
   addBackground() {
-    background = CustomRect(
+    background = GameRect(
       color: Color(0xFF333333),
       width: screenSize?.width ?? 0,
       height: screenSize?.height ?? 0,

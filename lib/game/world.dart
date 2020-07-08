@@ -1,17 +1,24 @@
+import 'package:flutterflame/engine/game.dart';
 import 'package:flutterflame/game/area.dart';
+import 'package:flutterflame/game/layer.dart';
 import 'package:flutterflame/game/utils/cell.dart';
 import 'package:flutterflame/game/utils/position.dart';
 import 'package:flutterflame/game/utils/row.dart';
 
 class World {
+  List<Layer> _layers = List<Layer>();
 
-  List<Area> areas = List<Area>();
+  final Game _game;
 
-  void init(int size) {
+  World(this._game);
 
-    areas.add(makeArea(size));
+  loadArea(double x, double y) async {
+    _layers.clear();
 
-    //
+    Area area = await Area(Position(x, y)).load();
+
+    _layers.add(Layer(area));
+
 
   }
 
